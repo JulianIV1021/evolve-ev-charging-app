@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "602982913166",
+    "project_id": "evolve3-a8489",
+    "storage_bucket": "evolve3-a8489.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602982913166:android:1b44134a3dfcb4ba4d25df",
+        "android_client_info": {
+          "package_name": "com.extrawest.flutter_map_training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602982913166-7rane5fl8uo90jra55tverqr6jhdh7vh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.extrawest.flutter_map_training",
+            "certificate_hash": "5e5cc591b858efafbda78f26c6386d8e57747707"
+          }
+        },
+        {
+          "client_id": "602982913166-m2ob5ieqdhj0tkls6um46g911apb9fnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi2Av-ZigJNjeYAPCU1Yq0AAMOHh1EE1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602982913166-m2ob5ieqdhj0tkls6um46g911apb9fnf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "602982913166-qqt6d1d91b1lv0r12qoabjssis0e6e89.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.extrawest.flutterMapTraining"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

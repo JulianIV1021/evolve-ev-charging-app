@@ -1,0 +1,8 @@
+jdk17/
+**/build/
+**/.gradle/
+.android/
+.gradle/
+.idea/
+.vscode/
+.DS_Store

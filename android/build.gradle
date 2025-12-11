@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+// Force AndroidX libs to versions compatible with AGP 8.3.2
+configurations.all {
+    resolutionStrategy {
+        force "androidx.browser:browser:1.8.0"
+        force "androidx.core:core-ktx:1.12.0"
+        force "androidx.core:core:1.12.0"
+    }
+}
+
+subprojects { subproject ->
+    subproject.configurations.all {
+        resolutionStrategy {
+          force "androidx.browser:browser:1.8.0"
+          force "androidx.core:core-ktx:1.12.0"
+          force "androidx.core:core:1.12.0"
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+subprojects { subproject ->
+    subproject.plugins.withId("com.android.library") {
+        def androidExtension = subproject.extensions.findByName("android")
+        if (androidExtension != null &&
+                androidExtension.hasProperty("namespace") &&
+                (androidExtension.namespace == null || androidExtension.namespace == "")) {
+            def manifestFile = androidExtension.sourceSets.main.manifest.srcFile
+            if (manifestFile != null && manifestFile.exists()) {
+                def manifest = new XmlSlurper().parse(manifestFile)
+                def pkg = manifest.@package.text()
+                if (pkg) {
+                    androidExtension.namespace = pkg
+                }
+            }
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.layout.buildDirectory
+}

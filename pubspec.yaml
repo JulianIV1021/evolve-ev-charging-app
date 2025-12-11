@@ -1,0 +1,53 @@
+name: flutter_map_training
+description: Flutter application with google maps support for mobile and web platforms
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^1.1.6
+
+  firebase_core: ^2.3.0
+  google_sign_in: ^7.2.0
+  firebase_auth: ^4.1.5
+  flutter_secure_storage: ^6.0.0
+  logging: ^1.1.0
+
+  #state
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+
+  #network
+  connectivity_plus: ^6.0.3
+  dio: ^5.4.0
+
+  #maps
+  google_maps_flutter: ^2.5.0
+  google_maps_flutter_web: ^0.5.14+3
+  google_maps_cluster_manager: ^3.1.0
+  geolocator: ^12.0.0
+  intl: ^0.17.0
+  flutter_polyline_points: ^2.0.0
+  url_launcher: ^6.3.0
+  battery_plus: ^6.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+dependency_overrides:
+  google_sign_in_android: ^7.2.7
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/map_type_normal.png
+    - assets/images/map_type_satellite.png
+    - assets/icons/google_logo.svg
