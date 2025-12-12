@@ -65,11 +65,14 @@ class FavoritesScreen extends StatelessWidget {
                                 OcmFavoritesStore.instance.toggle(station),
                           ),
                           onTap: () {
-                            // Switch to map tab and ask it to focus/open the sheet.
+                            // Switch to map tab and ask it to focus/open the sheet,
+                            // mirroring the search-bar redirect experience.
                             context
                                 .read<HomeBloc>()
                                 .add(SwitchTabEvent(AppScreen.map));
-                            StationFocusBus.instance.focus(station);
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              StationFocusBus.instance.focus(station);
+                            });
                           },
                         );
                       },

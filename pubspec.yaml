@@ -13,10 +13,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.6
 
-  firebase_core: ^2.3.0
-  google_sign_in: ^7.2.0
+  firebase_core: ^2.32.0
+  google_sign_in: ^6.3.0
   firebase_auth: ^4.1.5
   flutter_secure_storage: ^6.0.0
+  cloud_firestore: ^4.17.5
   logging: ^1.1.0
 
   #state
@@ -30,20 +31,29 @@ dependencies:
   #maps
   google_maps_flutter: ^2.5.0
   google_maps_flutter_web: ^0.5.14+3
-  google_maps_cluster_manager: ^3.1.0
   geolocator: ^12.0.0
   intl: ^0.17.0
   flutter_polyline_points: ^2.0.0
   url_launcher: ^6.3.0
   battery_plus: ^6.2.0
+  shared_preferences: ^2.2.2
+  flutter_foreground_task: ^8.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 dependency_overrides:
-  google_sign_in_android: ^7.2.7
+  geolocator_android: ^4.4.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/evolve_logo.png"
+  adaptive_icon_foreground: "assets/icons/evolve_logo.png"
+  adaptive_icon_background: "#FFFFFF"
 flutter:
   uses-material-design: true
   assets:
@@ -51,3 +61,4 @@ flutter:
     - assets/images/map_type_normal.png
     - assets/images/map_type_satellite.png
     - assets/icons/google_logo.svg
+    - assets/icons/logonobg.png

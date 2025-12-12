@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map_training/common/routes.dart';
 import 'package:flutter_map_training/common/theme.dart';
-import 'package:flutter_map_training/common/utils/api_domain_sneak_spot.dart';
 import 'package:flutter_map_training/common/utils/logger.dart';
 import 'package:flutter_map_training/features/account_feature/services/signup_service.dart';
-import 'package:flutter_map_training/features/wallet_feature/repository/wallet_repository.dart';
-import 'package:flutter_map_training/network/api_client.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'features/account_feature/repository/account_repository.dart';
+import 'features/account_feature/screens/auth_gate.dart';
+import 'features/stations_feature/bloc/sessions_bloc.dart';
+import 'features/stations_feature/bloc/sessions_event.dart';
 import 'features/stations_feature/bloc/stations_bloc.dart';
 import 'features/stations_feature/bloc/stations_event.dart';
 import 'features/stations_feature/repository/station_repository.dart';
+import 'features/stations_feature/repository/session_repository.dart';
 import 'features/stations_feature/services/location_service.dart';
-import 'features/wallet_feature/services/wallet_serivce.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -50,15 +51,14 @@ class RepositoryHolder extends StatelessWidget {
           ),
         ),
         RepositoryProvider(
-          create: (context) => WalletRepositoryImpl(
-            walletService: WalletServiceImpl(
-              ApiClientImpl(apiDomain: ApiDomainSneakSpot.apiDomain),
-            ),
+          create: (context) => AccountRepositoryImpl(
+            SignInServiceImpl(FirebaseAuth.instance),
           ),
         ),
         RepositoryProvider(
-          create: (context) => AccountRepositoryImpl(
-            SignInServiceImpl(FirebaseAuth.instance),
+          create: (context) => SessionRepositoryImpl(
+            auth: FirebaseAuth.instance,
+            firestore: FirebaseFirestore.instance,
           ),
         ),
       ],
@@ -74,15 +74,28 @@ class StationsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          StationsBloc(RepositoryProvider.of<StationRepositoryImpl>(context))
-            ..add(FetchStationsEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => StationsBloc(
+            RepositoryProvider.of<StationRepositoryImpl>(context),
+          )..add(FetchStationsEvent()),
+        ),
+        BlocProvider(
+          create: (context) => SessionsBloc(
+            RepositoryProvider.of<SessionRepositoryImpl>(context),
+          )..add(LoadSessionsEvent()),
+        ),
+      ],
       child: MaterialApp(
-        title: 'Stations App',
+        title: 'EVOLVE',
         debugShowCheckedModeBanner: false,
-        initialRoute: homeScreenPath,
-        routes: routes,
+        home: const AuthGate(),
+        routes: {
+          chargingScreenRoute: (context) =>
+              routes[chargingScreenRoute]!(context),
+          searchScreenRoute: (context) => routes[searchScreenRoute]!(context),
+        },
         theme: lightTheme,
       ),
     );

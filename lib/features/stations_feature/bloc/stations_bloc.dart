@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../common/utils/logger.dart';
 import '../models/ocm_station.dart';
 import '../repository/station_repository.dart';
+import '../services/search_history_store.dart';
 import 'bloc.dart';
 
 class StationsBloc extends Bloc<StationsEvent, StationsState> {
@@ -21,6 +22,7 @@ class StationsBloc extends Bloc<StationsEvent, StationsState> {
     on<PermissionRequestEvent>(_onPermissionRequested);
     on<SearchQueryChangedEvent>(_onSearchQueryChanged);
     on<AddToRecentSearchesEvent>(_onAddToRecentSearches);
+    on<LoadSearchHistoryEvent>(_onLoadSearchHistory);
     on<ClearRecentSearchesEvent>(_onClearRecentSearches);
     on<ClearSearchQueryEvent>(_onClearSearchQuery);
     on<StationSelectedViaSearchEvent>(_onStationSelectedViaSearch);
@@ -142,6 +144,24 @@ class StationsBloc extends Bloc<StationsEvent, StationsState> {
       recentSearches.add(event.station);
     }
     emit(state.copyWith(recentSearches: recentSearches));
+    // Persist to Firestore (per user); errors are ignored silently.
+    try {
+      await SearchHistoryStore.instance.add(event.station);
+    } catch (e, st) {
+      log.warning('Failed to save search history: $e\n$st');
+    }
+  }
+
+  Future<void> _onLoadSearchHistory(
+    LoadSearchHistoryEvent event,
+    Emitter<StationsState> emit,
+  ) async {
+    try {
+      final saved = await SearchHistoryStore.instance.fetchAll();
+      emit(state.copyWith(recentSearches: saved));
+    } catch (e, st) {
+      log.warning('Failed to load search history: $e\n$st');
+    }
   }
 
   Future<void> _onClearRecentSearches(
@@ -149,6 +169,11 @@ class StationsBloc extends Bloc<StationsEvent, StationsState> {
     Emitter<StationsState> emit,
   ) async {
     emit(state.copyWith(recentSearches: []));
+    try {
+      await SearchHistoryStore.instance.clear();
+    } catch (e, st) {
+      log.warning('Failed to clear search history: $e\n$st');
+    }
   }
 
   Future<void> _onClearSearchQuery(

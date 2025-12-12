@@ -4,7 +4,6 @@ import 'package:flutter_map_training/common/utils/assets.dart';
 import 'package:flutter_map_training/features/account_feature/bloc/bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -48,7 +47,7 @@ class SignInScreen extends StatelessWidget {
               onPressed: accountState.isLoading
                   ? null
                   : () {
-                      context.read<AccountBloc>().add(SignInEvent());
+                      context.read<AccountBloc>().add(SignInWithGoogleEvent());
                     },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -58,7 +57,10 @@ class SignInScreen extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(googleLogoAsset ,height: 24,),
+                    SvgPicture.asset(
+                      googleLogoAsset,
+                      height: 24,
+                    ),
                     const SizedBox(width: 20),
                     Text(
                       accountState.isLoading

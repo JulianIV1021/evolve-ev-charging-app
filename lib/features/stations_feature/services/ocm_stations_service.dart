@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/ocm_station.dart';
@@ -11,7 +12,7 @@ const String _ocmApiKey = String.fromEnvironment('OCM_API_KEY');
 Future<List<OcmStation>> fetchOcmStationsNearby({
   required double latitude,
   required double longitude,
-  double distanceKm = 10,
+  double distanceKm = 2,
 }) async {
   final uri = Uri.parse(
     '$_ocmBaseUrl'
@@ -38,6 +39,11 @@ Future<List<OcmStation>> fetchOcmStationsNearby({
     );
   }
 
-  final List<dynamic> raw = json.decode(resp.body) as List<dynamic>;
+  // Parse off the UI isolate to reduce jank on large payloads.
+  return compute(_parseOcmStations, resp.body);
+}
+
+List<OcmStation> _parseOcmStations(String body) {
+  final List<dynamic> raw = json.decode(body) as List<dynamic>;
   return raw.whereType<Map<String, dynamic>>().map(OcmStation.fromJson).toList();
 }

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 enum AppScreen {
   map,
   favorites,
-  wallet,
+  sessions,
   account,
 }
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_map_training/common/theme.dart';
 import 'package:intl/intl.dart';
 
@@ -17,8 +17,14 @@ class ChargingCard extends StatelessWidget {
   final double tariffPerKwh;
   final String connectorLabel;
   final VoidCallback onStop;
+  final VoidCallback? onStart;
   final String statusLabel;
+  final String powerDisplay;
+  final String amperageDisplay;
+  final String voltageDisplay;
+  final String tariffDisplay;
   final bool canStop;
+  final bool canStart;
   final bool spinning;
 
   const ChargingCard({
@@ -26,16 +32,22 @@ class ChargingCard extends StatelessWidget {
     required this.deliveredKwh,
     required this.cost,
     required this.onStop,
+    this.onStart,
     this.startTime,
     this.chargingSpeed = 50,
     this.amperage = 15,
     this.voltage = 150,
     this.stationName = 'Station Name',
-    this.coordinates = '—',
+    this.coordinates = '',
     this.tariffPerKwh = 3.0,
     this.connectorLabel = 'Type 2 AC',
-    this.statusLabel = 'Charging',
-    this.canStop = true,
+    this.statusLabel = 'Plug in, then tap Start',
+    this.powerDisplay = 'N/A',
+    this.amperageDisplay = 'N/A',
+    this.voltageDisplay = 'N/A',
+    this.tariffDisplay = 'See rates at station',
+    this.canStop = false,
+    this.canStart = true,
     this.spinning = true,
     Key? key,
   }) : super(key: key);
@@ -44,7 +56,7 @@ class ChargingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final dateText = startTime != null
         ? DateFormat('dd/MM/yy HH:mm').format(startTime!)
-        : '—';
+        : '-';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: BoxDecoration(
@@ -87,7 +99,7 @@ class ChargingCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '₱ ${cost.toStringAsFixed(2)}',
+                'PHP ${cost.toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -96,37 +108,64 @@ class ChargingCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          TextButton(
-            onPressed: canStop ? onStop : null,
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: greyBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: const Text(
-                'Stop Charging',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: canStart ? onStart : null,
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      disabledBackgroundColor: Colors.green.withOpacity(0.35),
+                      foregroundColor: Colors.white,
+                      disabledForegroundColor: Colors.white70,
+                      minimumSize: const Size.fromHeight(48),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      )),
+                  child: const Text(
+                    'Start Session',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: canStop ? onStop : null,
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      disabledBackgroundColor: Colors.red.withOpacity(0.35),
+                      foregroundColor: Colors.white,
+                      disabledForegroundColor: Colors.white70,
+                      minimumSize: const Size.fromHeight(48),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      )),
+                  child: const Text(
+                    'Stop Charging',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 34),
           _buildStatisticalItem('Starting Time', dateText),
           const SizedBox(height: 16),
-          _buildStatisticalItem('Charging Speed', '${chargingSpeed.toStringAsFixed(0)} kWh'),
+          _buildStatisticalItem('Charging Speed', powerDisplay),
           const SizedBox(height: 16),
-          _buildStatisticalItem('Amperage', '${amperage.toStringAsFixed(0)} A'),
+          _buildStatisticalItem('Amperage', amperageDisplay),
           const SizedBox(height: 16),
-          _buildStatisticalItem('Voltage', '${voltage.toStringAsFixed(0)} V'),
+          _buildStatisticalItem('Voltage', voltageDisplay),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -184,7 +223,7 @@ class ChargingCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '₱ ${tariffPerKwh.toStringAsFixed(2)} per kWh',
+                            tariffDisplay,
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -216,7 +255,7 @@ class ChargingCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            coordinates,
+                            coordinates.isEmpty ? '-' : coordinates,
                             style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 13,
@@ -258,10 +297,10 @@ class ChargingCard extends StatelessWidget {
                       ),
                     )
                   ],
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -274,19 +313,19 @@ class ChargingCard extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.black54,
             fontSize: 16,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
           ),
         ),
         Text(
           value,
           style: const TextStyle(
-            color: Colors.black54,
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
           ),
-        ),
+        )
       ],
     );
   }

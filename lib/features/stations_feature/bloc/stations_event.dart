@@ -41,6 +41,8 @@ class AddToRecentSearchesEvent extends StationsEvent {
   const AddToRecentSearchesEvent(this.station);
 }
 
+class LoadSearchHistoryEvent extends StationsEvent {}
+
 class ClearRecentSearchesEvent extends StationsEvent {}
 
 class ClearSearchQueryEvent extends StationsEvent {}

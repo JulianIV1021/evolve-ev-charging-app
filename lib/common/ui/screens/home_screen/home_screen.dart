@@ -7,13 +7,11 @@ import 'package:flutter_map_training/features/stations_feature/screens/stations_
 import '../../../../features/account_feature/repository/account_repository.dart';
 import '../../../../features/account_feature/screens/account_screen.dart';
 import '../../../../features/stations_feature/screens/favorites_screen.dart';
-import '../../../../features/wallet_feature/bloc/bloc.dart';
-import '../../../../features/wallet_feature/repository/wallet_repository.dart';
-import '../../../../features/wallet_feature/screens/wallet_screen.dart';
 import '../../widgets/app_bottom_bar.dart';
 import '../../widgets/app_floating_action_button.dart';
 import 'home_bloc.dart';
 import '../../../../features/stations_feature/services/pending_charging_intent_store.dart';
+import '../../../../features/stations_feature/screens/charging_history_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,11 +22,6 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => HomeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => WalletBloc(
-              RepositoryProvider.of<WalletRepositoryImpl>(context))
-            ..add(FetchWalletInfo()),
         ),
         BlocProvider(
           create: (context) => AccountBloc(
@@ -49,8 +42,8 @@ class HomeScreen extends StatelessWidget {
                       return const StationsScreen();
                     case AppScreen.favorites:
                       return const FavoritesScreen();
-                    case AppScreen.wallet:
-                      return const WalletScreen();
+                    case AppScreen.sessions:
+                      return const ChargingHistoryScreen();
                     case AppScreen.account:
                       return const AccountScreen();
                   }

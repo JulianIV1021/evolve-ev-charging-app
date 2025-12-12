@@ -34,6 +34,7 @@ class _RoutePreviewScreenState extends State<RoutePreviewScreen> {
       final station = widget.station!;
       PendingChargingIntentStore.instance.setIntent(
         PendingChargingIntent(
+          stationId: station.id.toString(),
           stationName: station.name,
           coordinates:
               '${station.latitude.toStringAsFixed(4)}, ${station.longitude.toStringAsFixed(4)}',

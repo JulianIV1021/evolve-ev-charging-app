@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class PendingChargingIntent {
+  final String stationId;
   final String stationName;
   final String coordinates;
   final double latitude;
@@ -13,6 +14,7 @@ class PendingChargingIntent {
   final double voltage;
 
   const PendingChargingIntent({
+    required this.stationId,
     required this.stationName,
     required this.coordinates,
     required this.latitude,

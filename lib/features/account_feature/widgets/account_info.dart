@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map_training/features/account_feature/widgets/account_info_field.dart';
@@ -9,8 +10,8 @@ class AccountInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accountBloc = context.watch<AccountBloc>();
-    final photoUrl = accountBloc.state.userCredential?.user?.photoURL;
+    final user = FirebaseAuth.instance.currentUser;
+    final photoUrl = user?.photoURL;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -25,13 +26,13 @@ class AccountInfo extends StatelessWidget {
         AccountInfoFiled(
           label: 'Name',
           icon: Icons.person,
-          value: accountBloc.state.userCredential?.user?.displayName ?? '',
+          value: user?.displayName ?? '',
         ),
         const SizedBox(height: 16),
         AccountInfoFiled(
           label: 'Email',
           icon: Icons.email,
-          value: accountBloc.state.userCredential?.user?.email ?? '',
+          value: user?.email ?? '',
         )
       ],
     );

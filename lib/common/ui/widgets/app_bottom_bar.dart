@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map_training/common/ui/widgets/bottom_bar_item.dart';
-import 'package:flutter_map_training/features/wallet_feature/bloc/bloc.dart';
 
 import '../screens/home_screen/home_bloc.dart';
 import '../screens/home_screen/home_event.dart';
 import '../screens/home_screen/home_state.dart';
+import '../../../features/stations_feature/bloc/sessions_bloc.dart';
+import '../../../features/stations_feature/bloc/sessions_event.dart';
 
 class ApplicationBottomBar extends StatelessWidget {
   const ApplicationBottomBar({Key? key}) : super(key: key);
@@ -13,7 +14,8 @@ class ApplicationBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeBloc = BlocProvider.of<HomeBloc>(context, listen: true);
-    final walletBloc = BlocProvider.of<WalletBloc>(context, listen: true);
+    // Keep SessionsBloc alive for status if needed later.
+    BlocProvider.of<SessionsBloc>(context, listen: false);
 
     return BottomAppBar(
       elevation: 12,
@@ -48,14 +50,14 @@ class ApplicationBottomBar extends StatelessWidget {
               ),
               const SizedBox(width: 42), // FAB notch spacer
               BottomBarItem(
-                icon: Icons.wallet,
-                label: walletBloc.state.status == WalletStatus.loaded
-                    ? '\$${walletBloc.state.wallet?.balance ?? 0}'
-                    : '...',
+                icon: Icons.history,
+                label: 'SESSIONS',
                 isSelected:
-                    homeBloc.state.currentScreen == AppScreen.wallet,
+                    homeBloc.state.currentScreen == AppScreen.sessions,
                 onPressed: () {
-                  homeBloc.add(SwitchTabEvent(AppScreen.wallet));
+                  homeBloc.add(SwitchTabEvent(AppScreen.sessions));
+                  // Refresh sessions when entering the tab.
+                  context.read<SessionsBloc>().add(LoadSessionsEvent());
                 },
               ),
               BottomBarItem(

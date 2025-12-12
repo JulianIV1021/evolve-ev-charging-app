@@ -10,6 +10,20 @@ class OcmConnector {
     this.powerKw,
     this.currentType,
   });
+
+  Map<String, dynamic> toJson() => {
+        'connectorType': connectorType,
+        'powerKw': powerKw,
+        'currentType': currentType,
+      };
+
+  factory OcmConnector.fromStorageJson(Map<String, dynamic> json) {
+    return OcmConnector(
+      connectorType: json['connectorType']?.toString() ?? 'Unknown',
+      powerKw: (json['powerKw'] as num?)?.toDouble(),
+      currentType: json['currentType']?.toString(),
+    );
+  }
 }
 
 class OcmStation {
@@ -65,6 +79,45 @@ class OcmStation {
 
   String get coordinatesLabel =>
       '${latitude.toStringAsFixed(4)}, ${longitude.toStringAsFixed(4)}';
+
+  Map<String, dynamic> toStorageJson() {
+    return {
+      'id': id,
+      'name': name,
+      'latitude': latitude,
+      'longitude': longitude,
+      'address': address,
+      'status': status,
+      'operatorName': operatorName,
+      'usageCost': usageCost,
+      'numberOfPoints': numberOfPoints,
+      'powerKw': powerKw,
+      'connectorType': connectorType,
+      'connectors': connectors.map((c) => c.toJson()).toList(),
+    };
+  }
+
+  factory OcmStation.fromStorageJson(Map<String, dynamic> json) {
+    final storedConnectors = (json['connectors'] as List<dynamic>? ?? [])
+        .whereType<Map<String, dynamic>>()
+        .map(OcmConnector.fromStorageJson)
+        .toList();
+
+    return OcmStation(
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name']?.toString() ?? 'Charging station',
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
+      address: json['address']?.toString() ?? '',
+      status: json['status']?.toString() ?? 'Unknown',
+      operatorName: json['operatorName']?.toString() ?? 'Unknown operator',
+      usageCost: json['usageCost']?.toString() ?? 'See rates at station',
+      numberOfPoints: (json['numberOfPoints'] as num?)?.toInt() ?? 1,
+      connectors: storedConnectors,
+      powerKw: (json['powerKw'] as num?)?.toDouble(),
+      connectorType: json['connectorType']?.toString(),
+    );
+  }
 
   factory OcmStation.fromJson(Map<String, dynamic> json) {
     final addr = json['AddressInfo'] as Map<String, dynamic>? ?? {};
