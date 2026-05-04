@@ -1,16 +1,15 @@
 # Evolve
 
-Evolve is a web-based platform designed for physical therapy services. It improves access to rehabilitation by enabling patients to connect directly with certified therapists in a secure, digital environment.
+Evolve is a mobile application for Electric Vehicle (EV) charging. It allows EV drivers to locate nearby charging stations, start and monitor charging sessions in real time, and track their charging history — all from their smartphone.
 
 ## Table of Contents
 
 - [About](#about)
-- [Live Demo](#live-demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
-- [Credentials](#credentials)
 - [User Roles](#user-roles)
 - [Usage Guide](#usage-guide)
-- [API Docs](#api-docs)
 - [Contributing](#contributing)
 - [Security](#security)
 - [License](#license)
@@ -20,178 +19,118 @@ Evolve is a web-based platform designed for physical therapy services. It improv
 
 ## About
 
-Evolve is a web-based telehealth platform designed to improve access to physical therapy services through remote consultations, personalized rehabilitation support, and progress monitoring. The platform connects patients and licensed physical therapists in a secure and user-friendly environment, offering features such as appointment scheduling, virtual sessions, messaging, and treatment tracking. Developed to address accessibility challenges, especially for individuals with mobility limitations and underserved communities, Evolve aims to make physical therapy more convenient, efficient, and inclusive through digital healthcare innovation.
+Evolve is a Flutter-based mobile application built for EV drivers who need a fast, reliable way to find and use EV charging stations. The app connects to a Firebase backend and displays real-time charger availability on an interactive Google Maps interface. Users can start a session by scanning a QR code or entering a charger ID manually, monitor their charging progress live, and review their complete charging history with energy consumed and cost breakdown.
+
+Designed with an iOS-style Cupertino UI, Evolve delivers a clean and intuitive experience for everyday EV charging needs.
 
 ---
 
-## Live Demo
+## Features
 
-**Status:** [Not Yet Deployed]
+- 🗺️ **Interactive Map** — View nearby EvolvePRO charging stations on Google Maps with real-time availability status (Available, Busy, Offline)
+- 🔍 **Station Search & Filters** — Search stations by name and filter by availability, charger type, and more
+- 📷 **QR Code Scanning** — Scan the QR code on any EvolvePRO charger to instantly start a session
+- ⌨️ **Manual Charger Entry** — Enter a Charger ID manually if QR scanning is not available
+- ⚡ **Live Charging Session** — Monitor your session in real time with an animated progress ring showing time remaining, energy delivered (kWh), and running cost (₱)
+- 🔔 **Smart Notifications** — Receive alerts when charging completes, when a grace period starts, and when idle fees begin accumulating
+- 📋 **Activity History** — Browse your full charging session history with energy and cost summaries per session
+- 🚗 **EV Vehicle Profile** — Set up your vehicle make, model, and battery capacity for personalized range estimates
+- 🔋 **Battery State of Charge** — See your current EV battery percentage and estimated remaining range on the home screen
+- 🔐 **Authentication** — Secure login and registration with email/password or Google Sign-In via Firebase Auth
+- 📡 **Offline Detection** — The app detects when the device goes offline and displays a banner to warn the user
 
-The application is currently in the final stages of development and will be hosted on **Hostinger**. Once deployed, the live link will be provided here.
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Flutter (Dart) |
+| Backend | Firebase (Firestore, Auth, Messaging, Analytics, Crashlytics) |
+| Maps | Google Maps Flutter |
+| Location | Geolocator |
+| State Management | Riverpod |
+| Navigation | GoRouter |
+| Notifications | Flutter Local Notifications |
+| HTTP Client | Dio |
+| Authentication | Firebase Auth + Google Sign-In |
+| UI Style | Cupertino (iOS-style) |
 
 ---
 
 ## Getting Started
 
-### Local Installation
+### Prerequisites
 
-To run this application on your local machine, ensure you have the following tools installed:
+Make sure you have the following installed:
 
-- PHP 8.2+
-- Composer
-- Node.js & npm
-- MySQL / MariaDB
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (Dart SDK `^3.9.2`)
+- Android Studio or VS Code with Flutter extension
+- A physical Android or iOS device, or an emulator
 
-**Steps to install:**
+### Installation
 
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/JulianIV1021/evolve-ev-charging-app.git
-   cd Evolve/Evolve
+   cd evolve-ev-charging-app/Evolve
    ```
 
-2. **Install Dependencies**
+2. **Install Flutter Dependencies**
    ```bash
-   composer install
-   npm install
+   flutter pub get
    ```
 
-3. **Environment Configuration**
+3. **Firebase Configuration**
+
+   The app requires a Firebase project. Place your `google-services.json` (Android) or `GoogleService-Info.plist` (iOS) file in the appropriate platform directory:
+   - Android: `android/app/google-services.json`
+   - iOS: `ios/Runner/GoogleService-Info.plist`
+
+   > ⚠️ These files are excluded from the repository for security. Contact the project lead to obtain them.
+
+4. **Run the App**
    ```bash
-   cp .env.example .env
-   # Update DB_DATABASE, DB_USERNAME, and DB_PASSWORD in your .env file
+   flutter run
    ```
-
-4. **Setup Application**
-   ```bash
-   php artisan key:generate
-   php artisan migrate --seed
-   npm run dev
-   ```
-
-5. **Start the Server**
-   ```bash
-   php artisan serve
-   ```
-
-### Cloud Configuration
-
-| Setting | Detail |
-|---|---|
-| Hosting Provider | Hostinger |
-| Status | Deployment in progress |
-| Deployment Lead | Julian IV Florentino |
-
----
-
-## Credentials
-
-Use the following default credentials to access the administrative dashboard for testing:
-
-| Role | Email | Password |
-|---|---|---|
-| Admin | admin@gmail.com | admin1234 |
-
-> **Note:** Patient and Therapist accounts can be created via the registration forms on the landing page.
 
 ---
 
 ## User Roles
 
-- **Admin** — Full system oversight, user verification, subscription management, and report generation.
-- **Patient** — Search for therapists, book/manage appointments, view personal medical records, and message therapists.
-- **Independent Therapist** — Manage personal practice, set availability, maintain patient EHRs, and conduct consultations.
-- **Clinic Therapist** — Similar to independent therapists but managed under a clinic entity with employee management features.
+- **EV Driver (User)** — Registers an account, sets up a vehicle profile, finds stations on the map, scans or enters a charger ID, monitors live sessions, and views charging history.
+
+> Note: Station and charger management is handled on the backend (Firestore). The mobile app is the driver-facing client only.
 
 ---
 
 ## Usage Guide
 
-- **Patients:** Navigate to the "Find a Therapist" section to book your first session. Use the "Messages" tab to communicate with your therapist.
-- **Therapists:** Access the "Clients" dashboard to update EHRs, treatment plans, and progress notes. Ensure your "Availability" is set to receive bookings.
-- **Admins:** Use the "Manage Users" section to verify new registrations and the "Reports" section to monitor platform activity.
+### Starting a Charging Session
+1. Open the app and log in
+2. On the **Home** screen, tap **Scan QR Code** and point your camera at the QR code on the charger
+3. Alternatively, tap **Enter Charger ID manually** and type in the charger code
+4. Confirm the charger details on the next screen and start the session
 
----
+### Monitoring Your Session
+- The **Charging** screen shows a live progress ring with minutes remaining, energy delivered in kWh, and your running cost in ₱
+- You will receive a push notification when charging is complete and when the grace period or idle fee begins
+- Tap **Stop Charging** at any time to end the session early
 
-## API Docs
+### Finding a Station
+- Go to the **Stations** tab to open the Google Maps view
+- Tap any marker to see station details (availability, chargers, location)
+- Use the **Search** tab to find a station by name
+- Use the **Filter** button to narrow results by status or charger type
 
-Evolve utilizes Laravel's routing system. All endpoints require an active authenticated session (or appropriate Bearer token) and are strictly protected to ensure data privacy.
-
----
-
-### `GET /api/messages/fetch`
-
-**Description:** Retrieves the conversation history between the authenticated user and a specific recipient.
-
-**Parameters:**
-- `receiver_id` *(integer, required)* — The ID of the recipient user.
-
-**Example Response:**
-```json
-[
-  {
-    "id": 1,
-    "sender_id": 2,
-    "receiver_id": 5,
-    "message": "Hello, how is your progress today?",
-    "type": "text",
-    "created_at": "2023-10-01T10:00:00.000000Z"
-  }
-]
-```
-
----
-
-### `POST /api/messages/send`
-
-**Description:** Sends text, files, or voice messages securely to a recipient. Triggers real-time WebSocket events via Pusher.
-
-**Parameters:**
-- `receiver_id` *(integer, required)* — The ID of the recipient.
-- `message` *(string, optional)* — The text content to send.
-- `file` *(file, optional)* — An attachment (e.g., pdf, image).
-- `voice_message` *(file, optional)* — A recorded voice note.
-
-**Example Response:**
-```json
-{
-  "success": true,
-  "message": {
-    "id": 2,
-    "sender_id": 5,
-    "receiver_id": 2,
-    "message": "I'm feeling much better!",
-    "type": "text"
-  }
-}
-```
-
----
-
-### `POST /video/create-room`
-
-**Description:** Initializes a secure video consultation room for telehealth sessions (powered by Daily.co). Only authorized providers can initiate calls to patients with active appointments.
-
-**Parameters:**
-- `receiver_id` *(integer, required)* — The ID of the patient to call.
-
-**Example Response:**
-```json
-{
-  "success": true,
-  "room_name": "Evolve-5-2-1696154400",
-  "room_url": "https://yourdomain.daily.co/Evolve-5-2-1696154400",
-  "token": "eyJhbGciOiJIUzI1NiIsInR...",
-  "redirect": "https://Evolve.com/video/room/Evolve-5-2-1696154400?token=..."
-}
-```
+### Viewing History
+- Go to the **Activity** tab to see all your past charging sessions
+- Each card shows the station name, date, energy used (kWh), and total cost (₱)
+- Tap any session card for a full breakdown
 
 ---
 
 ## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -203,7 +142,9 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## Security
 
-Evolve prioritizes data privacy. All user records are stored securely, and authentication is handled via Laravel's robust security features. If you discover any security vulnerabilities, please report them directly to the project lead for immediate resolution.
+Evolve uses Firebase Authentication to handle all user sessions securely. Firestore security rules restrict data access to authenticated users only. Sensitive configuration files (`google-services.json`, `GoogleService-Info.plist`, API keys) are excluded from version control and should never be committed to the repository.
+
+If you discover a security vulnerability, please report it directly to the project lead for immediate resolution.
 
 ---
 
