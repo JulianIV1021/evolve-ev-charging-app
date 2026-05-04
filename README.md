@@ -36,17 +36,17 @@ Designed with an iOS-style Cupertino UI, Evolve delivers a clean and intuitive e
 
 ## Features
 
-- 🗺️ **Interactive Map** — View nearby EvolvePRO charging stations on Google Maps with real-time availability status (Available, Busy, Offline)
-- 🔍 **Station Search & Filters** — Search stations by name and filter by availability, charger type, and more
-- 📷 **QR Code Scanning** — Scan the QR code on any EvolvePRO charger to instantly start a session
-- ⌨️ **Manual Charger Entry** — Enter a Charger ID manually if QR scanning is not available
-- ⚡ **Live Charging Session** — Monitor your session in real time with an animated progress ring showing time remaining, energy delivered (kWh), and running cost (₱)
-- 🔔 **Smart Notifications** — Receive alerts when charging completes, when a grace period starts, and when idle fees begin accumulating
-- 📋 **Activity History** — Browse your full charging session history with energy and cost summaries per session
-- 🚗 **EV Vehicle Profile** — Set up your vehicle make, model, and battery capacity for personalized range estimates
-- 🔋 **Battery State of Charge** — See your current EV battery percentage and estimated remaining range on the home screen
-- 🔐 **Authentication** — Secure login and registration with email/password or Google Sign-In via Firebase Auth
-- 📡 **Offline Detection** — The app detects when the device goes offline and displays a banner to warn the user
+- **Interactive Map** — View nearby EvolvePRO charging stations on Google Maps with real-time availability status (Available, Busy, Offline)
+- **Station Search & Filters** — Search stations by name and filter by availability, charger type, and more
+- **QR Code Scanning** — Scan the QR code on any EvolvePRO charger to instantly start a session
+- **Manual Charger Entry** — Enter a Charger ID manually if QR scanning is not available
+- **Live Charging Session** — Monitor your session in real time with an animated progress ring showing time remaining, energy delivered (kWh), and running cost (₱)
+- **Smart Notifications** — Receive alerts when charging completes, when a grace period starts, and when idle fees begin accumulating
+- **Activity History** — Browse your full charging session history with energy and cost summaries per session
+- **EV Vehicle Profile** — Set up your vehicle make, model, and battery capacity for personalized range estimates
+- **Battery State of Charge** — See your current EV battery percentage and estimated remaining range on the home screen
+- **Authentication** — Secure login and registration with email/password or Google Sign-In via Firebase Auth
+- **Offline Detection** — The app detects when the device goes offline and displays a banner to warn the user
 
 ---
 
