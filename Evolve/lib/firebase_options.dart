@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAwJK-hX6lARhEKYCIXdh_NzLSe0LPG_r8',
+    apiKey: 'YOUR_WEB_API_KEY',
     appId: '1:67538406814:web:6765de1cdc8357c8d39a8f',
     messagingSenderId: '67538406814',
     projectId: 'evolvepro-f0620',
@@ -53,7 +53,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBWvBPGNhil6gDETpIEFw-_v_aFv2UzZXY',
+    apiKey: 'YOUR_ANDROID_API_KEY',
     appId: '1:67538406814:android:f5f1f5c9381f8e35d39a8f',
     messagingSenderId: '67538406814',
     projectId: 'evolvepro-f0620',
@@ -61,7 +61,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDFUBh82qu6GFA20CoAVVH5tXuvZpsR-Uw',
+    apiKey: 'YOUR_IOS_API_KEY',
     appId: '1:67538406814:ios:461c64bee3b6d6a6d39a8f',
     messagingSenderId: '67538406814',
     projectId: 'evolvepro-f0620',
@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDFUBh82qu6GFA20CoAVVH5tXuvZpsR-Uw',
+    apiKey: 'YOUR_MACOS_API_KEY',
     appId: '1:67538406814:ios:461c64bee3b6d6a6d39a8f',
     messagingSenderId: '67538406814',
     projectId: 'evolvepro-f0620',

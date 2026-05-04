@@ -9,7 +9,7 @@ class ApiConfig {
   ApiConfig._();
 
   /// Google Maps / Directions API key.
-  static const String googleMapsApiKey = 'AIzaSyCPO7HTBbv9b_FwGVUQylLJCnSIXehulhg';
+  static const String googleMapsApiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
 
   /// Directions API base URL.
   static const String directionsBaseUrl =
