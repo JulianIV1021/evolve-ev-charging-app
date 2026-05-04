@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "67538406814",
+    "project_id": "evolvepro-f0620",
+    "storage_bucket": "evolvepro-f0620.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67538406814:android:f5f1f5c9381f8e35d39a8f",
+        "android_client_info": {
+          "package_name": "com.example.evolvepro_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWvBPGNhil6gDETpIEFw-_v_aFv2UzZXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

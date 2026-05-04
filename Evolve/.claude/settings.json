@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze --no-pub)",
+      "Bash(flutter analyze)",
+      "Bash(flutter analyze lib/screens/stations/station_detail_sheet.dart)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\flore\\.claude\\projects\\c--evolvepro-app"
+    ]
+  }
+}
