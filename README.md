@@ -20,7 +20,7 @@ Evolve is a mobile application for Electric Vehicle (EV) charging. It allows EV 
 
 ## Live Demo
 
-▶️ [Watch the Evolve App Demo](https://github.com/JulianIV1021/evolve-ev-charging-app/blob/main/Evolve/assets/Evolve%20Live%20demo.mp4)
+▶️ [Watch the Evolve App Demo](https://github.com/JulianIV1021/evolve-ev-charging-app/blob/main/Evolve/assets/Evolve%20Live%20demo%20(1).mp4)
 
 > Click the link above to watch a full walkthrough of the Evolve EV charging app — including station discovery, QR code scanning, live charging session monitoring, and activity history.
 
