@@ -5,6 +5,7 @@ Evolve is a mobile application for Electric Vehicle (EV) charging. It allows EV 
 ## Table of Contents
 
 - [About](#about)
+- [Download APK](#download-apk)
 - [Live Demo](#live-demo)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -15,6 +16,24 @@ Evolve is a mobile application for Electric Vehicle (EV) charging. It allows EV 
 - [Security](#security)
 - [License](#license)
 - [Contact](#contact)
+
+---
+
+## Download APK
+
+> **For thesis evaluators and testers — download the latest release APK directly below.**
+
+| Version | Download | Size |
+|---|---|---|
+| v1.0.0 (Release) | [**evolve-v1.0.0-release.apk**](releases/evolve-v1.0.0-release.apk) | ~52 MB |
+
+### How to Install on Android
+1. Download the APK file from the link above
+2. On your Android device, go to **Settings → Security** (or **Apps → Special App Access**) and enable **Install unknown apps** for your browser or file manager
+3. Open the downloaded APK file and tap **Install**
+4. Launch **Evolve** from your app drawer
+
+> ⚠️ You may need to allow installation from unknown sources since this APK is not distributed via the Google Play Store.
 
 ---
 
